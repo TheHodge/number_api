@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'prawn'
 
 helpers do
   def respond_with_number
@@ -25,6 +26,15 @@ end
 
 get '/:number.xml' do
   respond_with_number { "<number>#{@number}</number>" }
+end
+
+get '/:number.pdf' do
+  content_type :pdf
+  respond_with_number do
+    pdf = Prawn::Document.new
+    pdf.text(@number.to_s)
+    pdf.render
+  end
 end
 
 get '/:number' do
