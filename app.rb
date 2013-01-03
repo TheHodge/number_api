@@ -21,10 +21,12 @@ get '/' do
 end
 
 get '/:number.json' do
+  content_type :json
   respond_with_number { {:number => @number}.to_json }
 end
 
 get '/:number.xml' do
+  content_type :xml
   respond_with_number { "<number>#{@number}</number>" }
 end
 
